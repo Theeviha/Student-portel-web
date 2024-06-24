@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <!-- Linking Google Font Link For Icons -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+  />
+  <!-- Importing Google font - Poppins -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #ffffff;
+      position: relative;
+    }
+
+    .logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    .user-profile {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      color: #040405;
+      padding: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .user-profile img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid #1a0271;
+    }
+
+    .user-profile h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-left: 10px;
+    }
+
+    .user-profile span {
+      font-size: 0.775rem;
+      font-weight: 600;
+      margin-left: 10px;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: #fbf7fb;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 14px;
+      display: none;
+      flex-direction: column;
+      width: 150px;
+    }
+
+    .dropdown a {
+      padding: 10px;
+      text-decoration: none;
+      color: #161a2d;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: background 0.2s ease;
+      cursor: pointer;
+      display: block;
+    }
+
+    .dropdown a:hover {
+      background: #4965b4;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 85px;
+      display: flex;
+      overflow-x: hidden;
+      flex-direction: column;
+      background: linear-gradient(to right, #000000, #3533cd, #3533cd);
+      padding: 25px 20px;
+      transition: all 0.4s ease;
+    }
+
+    .sidebar:hover {
+      width: 260px;
+    }
+
+    .sidebar .sidebar-header {
+      display: flex;
+      align-items: center;
+      padding: 12px 10px;
+    }
+
+    .sidebar .sidebar-header img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+    }
+
+    .sidebar .sidebar-header h2 {
+      color: #fef9f9;
+      font-size: 1.25rem;
+      font-weight: 600;
+      white-space: nowrap;
+      margin-left: 15px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .sidebar:hover .sidebar-header h2 {
+      opacity: 1;
+    }
+
+    .sidebar-links h4 {
+      font-weight: 500;
+      white-space: nowrap;
+      margin: 10px 0;
+      position: relative;
+    }
+
+    .sidebar-links h4 span {
+      opacity: 0;
+    }
+
+    .sidebar:hover .sidebar-links h4 span {
+      opacity: 1;
+    }
+
+    .sidebar-links .menu-separator {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      height: 1px;
+      transform: scaleX(1);
+      transform: translateY(-50%);
+      background: #4f52ba;
+      transform-origin: right;
+      transition-delay: 0.2s;
+    }
+
+    .sidebar:hover .sidebar-links .menu-separator {
+      transition-delay: 0s;
+      transform: scaleX(0);
+    }
+
+    .sidebar-links {
+      list-style: none;
+      margin-top: 20px;
+      height: 80%;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+
+    .sidebar-links::-webkit-scrollbar {
+      display: none;
+    }
+
+    .sidebar-links li a {
+      display: flex;
+      align-items: center;
+      gap: 0 20px;
+      color: #fff;
+      font-weight: 500;
+      white-space: nowrap;
+      padding: 15px 10px;
+      text-decoration: none;
+      transition: 0.2s ease;
+    }
+
+    .sidebar-links li a:hover,
+    .sidebar-links li a.active {
+      color: #f40e35;
+      background: #12f124;
+      border-radius: 4px;
+    }
+
+    .user-account {
+      /*margin-top: auto;*/
+      margin-top: 0px;
+      padding: 12px 10px;
+    }
+
+    .sidebar:hover .user-account {
+      background: #4bfa0c;
+      border-radius: 4px;
+    }
+
+    .calendar-buttons-container {
+      position: absolute;
+      top: 150px;
+      right: 20px;
+      width: 300px;
+      text-align: right; /* Align content inside calendar-buttons to the right */
+    }
+
+    .calendar-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end; /* Align buttons to the right within their container */
+    }
+
+    .calendar-buttons button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background-color: #4f52ba;
+      color: rgba(243, 12, 39, 0.943);
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin: 5px; /* Adjust margin for spacing between buttons */
+    }
+
+    .calendar-buttons button:hover {
+      background-color: #24090903;
+    }
+
+    .calendar-buttons button.active {
+      background-color: #f40e35; /* Active state background color */
+      color: #fff; /* Active state text color */
+    }
+
+    .sessions-roadmap {
+      position: absolute;
+      top: 100px;
+      right: 20px;
+      text-align: left; /* Align heading to the right */
+      color: #ff914d;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .class-heading {
+      text-align: center; /* Center align the heading */
+      margin-top: 20px; /* Adjust top margin as needed */
+      border-bottom: 2px solid #000000;
+      color: #000000;
+      font-size: 2rem;
+    }
+
+    /* Additional styling for session details display */
+    #sessionDetails {
+      position: absolute;
+      top: 200px;
+      right: 50%;
+      transform: translateX(50%);
+      background-color: #ffffff;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      z-index: 1000;
+      display: none;
+    }
+
+    #sessionDetails h3 {
+      margin-bottom: 10px;
+      color: #000000;
+      font-size: 1.5rem;
+    }
+
+    #sessionDetails ul {
+      margin-bottom: 10px;
+      padding-left: 20px;
+    }
+
+    #sessionDetails button {
+      background-color: #4f52ba;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #sessionDetails button:hover {
+      background-color: #24090903;
+    }
+  </style>
+</head>
+<body>
+  <div class="user-profile" onclick="toggleDropdown()">
+    <img src="" alt="user profile picture" />
+    <div class="user-detail">
+      <h3>Theeviharajiny Perumal</h3>
+    </div>
+  </div>
+  <div class="dropdown" id="userDropdown">
+    <a href="#">Profile</a>
+    <a href="#">Logout</a>
+  </div>
+  <div class="class-heading">
+    <h2>CLASS</h2>
+  </div>
+  <div class="sessions-roadmap">
+    <h4>Sessions Road Map</h4>
+  </div>
+  <div class="calendar-buttons-container">
+    <div class="calendar-buttons">
+      <!-- Generate 54 circular calendar buttons dynamically -->
+      <script>
+        for (let i = 1; i <= 54; i++) {
+          document.write(`<button id="btn-${i}" onclick="showSessionDetails(${i})">${i}</button>`);
+        }
+      </script>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="logoiat.jpg" alt="logo" />
+      <h2>Dashboard</h2>
+    </div>
+    <ul class="sidebar-links">
+      <h4><span>Main Menu</span></h4>
+      <li><a href="#" onclick="setActiveMenuItem(this)"><span class="material-symbols-outlined">school</span> Class</a></li>
+      <li><a href="#" onclick="setActiveMenuItem(this)"><span class="material-symbols-outlined">dashboard</span> Dashboard</a></li>
+      <li><a href="#" onclick="setActiveMenuItem(this)"><span class="material-symbols-outlined">task</span> Tasks</a></li>
+      <li><a href="#" onclick="setActiveMenuItem(this)"><span class="material-symbols-outlined">assignment</span> Capstone</a></li>
+      <li><a href="#" onclick="setActiveMenuItem(this)"><span class="material-symbols-outlined">question_answer</span> Queries</a></li>
+      <li><a href="#" onclick="setActiveMenuItem(this)"><span class="material-symbols-outlined">description</span> Requirements</a></li>
+      <li><a href="#" onclick="setActiveMenuItem(this)"><span class="material-symbols-outlined">work</span> Portfolio – Submission</a></li>
+      <li><a href="#" onclick="setActiveMenuItem(this)"><span class="material-symbols-outlined">apps</span> Applications</a></li>
+      <li><a href="#" onclick="setActiveMenuItem(this)"><span class="material-symbols-outlined">assignment_turned_in</span> Interview Tasks</a></li>
+      <li><a href="#" onclick="setActiveMenuItem(this)"><span class="material-symbols-outlined">event_note</span> Leave – applications</a></li>
+      <li><a href="#" onclick="setActiveMenuItem(this)"><span class="material-symbols-outlined">record_voice_over</span> Mock interviews</a></li>
+      <li><a href="#" onclick="setActiveMenuItem(this)"><span class="material-symbols-outlined">badge</span> Certificate</a></li>
+      <li><a href="#" onclick="setActiveMenuItem(this)"><span class="material-symbols-outlined">reviews</span> Testimonial</a></li>
+      <li><a href="#" onclick="setActiveMenuItem(this)"><span class="material-symbols-outlined">leaderboard</span> Leaderboard</a></li>
+      <li><a href="#" onclick="setActiveMenuItem(this)"><span class="material-symbols-outlined">badge</span> Syllabus</a></li>
+      <li><a href="#" onclick="setActiveMenuItem(this)"><span class="material-symbols-outlined">place</span> Placement Board </a></li>
+    </ul>
+  </aside>
+
+  <!-- Session Details Container -->
+  <div id="sessionDetails">
+    <h3 id="sessionName"></h3>
+    <ul id="topics"></ul>
+    <div id="assessmentLinks"></div>
+    <div id="recordings"></div>
+    <button id="feedbackButton" onclick="openFeedbackForm()">Feedback</button>
+  </div>
+
+  <script>
+    let activeButton = null; // Variable to store the currently active button
+
+    function toggleDropdown() {
+      var dropdown = document.getElementById("userDropdown");
+      dropdown.style.display = dropdown.style.display === "none" ? "flex" : "none";
+    }
+
+    function setActiveMenuItem(element) {
+      // Remove 'active' class from all menu items
+      document.querySelectorAll('.sidebar-links li a').forEach(function(menuItem) {
+        menuItem.classList.remove('active');
+      });
+
+      // Add 'active' class to the clicked menu item
+      element.classList.add('active');
+    }
+
+    function showSessionDetails(sessionNumber) {
+      // Check if there's an active button and remove its 'active' class
+      if (activeButton) {
+        activeButton.classList.remove('active');
+      }
+
+      // Set the new active button
+      activeButton = document.getElementById(`btn-${sessionNumber}`);
+      activeButton.classList.add('active');
+
+      // Simulate fetching session details (replace with actual data fetching logic)
+      const sessionDetails = {
+        name: `Session ${sessionNumber}`,
+        topics: [`Topic ${sessionNumber}.1`, `Topic ${sessionNumber}.2`, `Topic ${sessionNumber}.3`],
+        assessmentLinks: `Assessment Links for Session ${sessionNumber}`,
+        recordings: `Recordings for Session ${sessionNumber}`
+      };
+
+      // Update session details in the UI
+      document.getElementById('sessionName').textContent = sessionDetails.name;
+      document.getElementById('topics').innerHTML = sessionDetails.topics.map(topic => `<li>${topic}</li>`).join('');
+      document.getElementById('assessmentLinks').textContent = sessionDetails.assessmentLinks;
+      document.getElementById('recordings').textContent = sessionDetails.recordings;
+
+      // Display the session details container
+      const sessionDetailsContainer = document.getElementById('sessionDetails');
+      sessionDetailsContainer.style.display = 'block';
+    }
+
+    function openFeedbackForm() {
+      // Implement functionality to open a feedback form or link
+      alert('Implement feedback functionality here!');
+    }
+  </script>
+</body>
+</html>

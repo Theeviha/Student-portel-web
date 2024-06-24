@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <!-- Linking Google Font Link For Icons -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+  />
+  <!-- Importing Google font - Poppins -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" />
+  <!-- Font Awesome for star icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: #ffffff;
+  position: relative;
+}
+
+.user-profile {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  color: #040405;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #fbf7fb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-profile img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid #1a0271;
+  margin-right: 10px;
+}
+
+.user-profile .user-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-profile h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.user-profile p {
+  font-size: 0.775rem;
+  margin: 0;
+}
+
+.dropdown {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background: #fbf7fb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 14px;
+  display: none;
+  flex-direction: column;
+  width: 150px;
+  z-index: 1000; /* Ensure dropdown is above other elements */
+}
+
+.dropdown a {
+  padding: 10px;
+  text-decoration: none;
+  color: #161a2d;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+  cursor: pointer;
+  display: block;
+}
+
+.dropdown a:hover {
+  background: #4965b4;
+}
+
+.feedback-section {
+  margin-top: 20px;
+  padding: 20px;
+  background: #fbf7fb;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-section h4 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.star-rating {
+  margin-bottom: 10px;
+}
+
+.star-rating .fa {
+  font-size: 1.5rem;
+  color: #ff914d;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.star-rating .fa:hover,
+.star-rating .fa.active {
+  color: #f40e35;
+}
+
+.session-range {
+  margin-bottom: 10px;
+}
+
+.session-range input[type="radio"] {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.feedback-section textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.feedback-section button {
+  background-color: #4f52ba;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.feedback-section button:hover {
+  background-color: #24090903;
+}
+
+user-profile {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  color: #040405;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #fbf7fb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-profile img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid #1a0271;
+  margin-right: 10px;
+}
+
+.user-profile .user-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-profile h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.user-profile p {
+  font-size: 0.775rem;
+  margin: 0;
+}
+
+.user-profile input[type="email"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px;
+  width: 180px; /* Adjust width as needed */
+}
+
+  </style>
+</head>
+<body>
+  <div class="user-profile" onclick="toggleDropdown()">
+    <img src="pro imag.avif" alt="user profile picture" />
+    <div class="user-detail">
+      <h3>Theeviharajiny Perumal</h3>
+      <!-- Adding email and batch code -->
+      <p>Email: student@example.com</p>
+      <p>Batch Code: ABC123</p>
+    </div>
+  </div>
+  <div class="dropdown" id="userDropdown">
+    <a href="#">Profile</a>
+    <a href="#">Logout</a>
+  </div>
+
+  <!-- Rest of your HTML content -->
+
+  <!-- Feedback Section -->
+  <div class="feedback-section">
+    <h4>Feedback</h4>
+    <!-- Star rating using Font Awesome -->
+    <div class="star-rating">
+      <span class="fa fa-star"></span>
+      <span class="fa fa-star"></span>
+      <span class="fa fa-star"></span>
+      <span class="fa fa-star"></span>
+      <span class="fa fa-star"></span>
+    </div>
+    <!-- Radio buttons for session range -->
+    <div class="session-range">
+      <input type="radio" id="range1" name="sessionRange" value="1-10">
+      <label for="range1">1-10 sessions</label><br>
+      <input type="radio" id="range2" name="sessionRange" value="11-20">
+      <label for="range2">11-20 sessions</label><br>
+      <!-- Add more as needed -->
+    </div>
+    <div class="user-profile" onclick="toggleDropdown()">
+        <img src="pro imag.avif" alt="user profile picture" />
+        <div class="user-detail">
+          <h3>Theeviharajiny Perumal</h3>
+          <!-- Email input field -->
+          <input type="email" id="userEmail" placeholder="Enter email" />
+          <!-- Batch code display -->
+          <p>Batch Code: ABC123</p>
+        </div>
+      </div>
+    <!-- Feedback description -->
+    <textarea id="feedbackDescription" rows="4" placeholder="Enter your feedback here..."></textarea>
+    <button onclick="submitFeedback()">Submit</button>
+  </div>
+
+  <script>
+    // Your existing JavaScript functions
+    // Implement submitFeedback() function for feedback submission
+    function submitFeedback() {
+      // Handle feedback submission logic here
+      alert('Feedback submitted!');
+    }
+    // Example function to retrieve and use the email input value
+function getEmail() {
+  var userEmail = document.getElementById('userEmail').value;
+  // Perform actions with userEmail, e.g., validate or send to server
+  console.log('User Email:', userEmail);
+}
+
+  </script>
+</body>
+</html>
